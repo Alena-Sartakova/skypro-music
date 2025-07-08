@@ -38,15 +38,15 @@ body {
 .wrapper {
   width: 100%;
   min-height: 100%;
-  overflow: hidden;
   background-color: #383838;
 }
 
 .container {
-  max-width: 1920px;
-  height: 100vh;
+max-width: 1920px;
+  width: 100%;
+  padding: 0;
   margin: 0 auto;
-  position: relative;
+
   background-color: #181818;
 }
 
@@ -82,35 +82,38 @@ body {
 }
 
 .main {
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  width: 100%;
+  overflow-x: auto;
+  min-width: 1200px;
+  overflow-y: hidden;
+}
+
+.main > * {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 
 .main__nav {
   width: 244px;
+  flex: 0 0 auto;
   background-color: #181818;
-  padding: 20px 0 20px 36px;
+  padding: 20px;
 }
 
 .main__centerblock {
-  width: auto;
-  -webkit-box-flex: 3;
-  -ms-flex-positive: 3;
-  flex-grow: 3;
-  padding: 20px 40px 20px 111px;
+  flex: 1;
+  min-width: 0;
+  padding: 20px 40px 20px calc(111px - 20px);
+  margin-left: 0;
 }
 
 .main__sidebar {
-  max-width: 418px;
+  width: 418px;
+  flex: 0 0 auto;
   padding: 20px 90px 20px 78px;
 }
 
@@ -569,11 +572,13 @@ body {
 }
 
 .bar {
-  position: absolute;
+  position: fixed;;
   bottom: 0;
   left: 0;
   width: 100%;
   background: rgba(28, 28, 28, 0.5);
+  z-index: 1000;
+  backdrop-filter: blur(10px);
 }
 
 .bar__content {
