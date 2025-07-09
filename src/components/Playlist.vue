@@ -1,24 +1,28 @@
 <template>
-<div class="centerblock__content playlist-content">
-    <div class="content__title playlist-title">
-      <div class="playlist-title__col col01">Трек</div>
-      <div class="playlist-title__col col02">Исполнитель</div>
-      <div class="playlist-title__col col03">Альбом</div>
-      <div class="playlist-title__col col04">
-        <svg class="playlist-title__svg">
-          <use xlink:href="#icon-watch"></use>
-        </svg>
-      </div>
-    </div>
-    <div class="content__playlist playlist">
-      <!-- Сюда будут вставляться компоненты Track -->
-      <slot></slot>
-    </div>
-  </div>
+            <div class="centerblock__content playlist-content">
+              <div class="content__title playlist-title">
+                <div class="playlist-title__col col01">Трек</div>
+                <div class="playlist-title__col col02">Исполнитель</div>
+                <div class="playlist-title__col col03">Альбом</div>
+                <div class="playlist-title__col col04">
+                  <svg class="playlist-title__svg">
+                    <use xlink:href="#icon-watch"></use>
+                  </svg>
+                </div>
+              </div>
+              <div class="content__playlist playlist">
+
+<Track v-for="track in tracks" :key="track.id" :track="track"/>
+
+              </div>
+            </div>
 </template>
 
 <script setup>
+import { inject } from 'vue';
 import Track from './Track.vue';
+
+const tracks = inject('tracks')
 
 
 </script>
@@ -38,6 +42,12 @@ import Track from './Track.vue';
   letter-spacing: 2px;
   color: #696969;
   text-transform: uppercase;
+}
+.playlist-title__svg {
+  width: 12px;
+  height: 12px;
+  fill: transparent;
+  stroke: #696969;
 }
 
 .col01 { width: 447px; }
