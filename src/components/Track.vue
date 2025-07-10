@@ -1,5 +1,5 @@
 <template>
- <div class="playlist__item">
+  <div class="playlist__item">
     <div class="playlist__track track">
       <div class="track__title">
         <div class="track__title-image">
@@ -9,33 +9,75 @@
         </div>
         <div class="track__title-text">
           <a class="track__title-link" href="http://">
-            {{ trackTitle }} <span class="track__title-span">{{ trackSubtitle }}</span>
+            {{ track.title }}
+            <!-- Добавляем проверку на наличие ремикса -->
+            <span v-if="track.title.includes('(Remix)')" class="track__title-span">(Remix)</span>
           </a>
         </div>
       </div>
       <div class="track__author">
-        <a class="track__author-link" href="http://">{{ author }}</a>
+        <a class="track__author-link" href="http://">{{ track.artist }}</a>
       </div>
       <div class="track__album">
-        <a class="track__album-link" href="http://">{{ album }}</a>
+        <a class="track__album-link" href="http://">{{ track.album }}</a>
       </div>
       <div class="track__time">
         <svg class="track__time-svg">
           <use xlink:href="#icon-like"></use>
         </svg>
-        <span class="track__time-text">{{ duration }}</span>
+        <span class="track__time-text">{{ track.duration }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-
+defineProps({
+  track: {
+    type: Object,
+    required: true,
+    default: () => ({
+      id: 0,
+      title: '',
+      artist: '',
+      album: '',
+      duration: '',
+      genre: '',
+      year: 0
+    })
+  }
+})
 </script>
 
+
 <style lang="scss" scoped>
-.track__title {
+
+.playlist__track {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.track__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 447px;
 }
@@ -45,8 +87,14 @@
   height: 51px;
   padding: 16px;
   background: #313131;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin-right: 17px;
 }
@@ -58,13 +106,51 @@
   stroke: #4e4e4e;
 }
 
+.track__title-link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+}
+
+.track__title-span {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #4e4e4e;
+}
+
 .track__author {
   width: 321px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+}
+
+.track__author-link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  text-align: left;
 }
 
 .track__album {
   width: 245px;
+}
+
+.track__album-link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #696969;
 }
 
 .track__time-svg {
@@ -73,5 +159,14 @@
   margin-right: 17px;
   fill: transparent;
   stroke: #696969;
+}
+
+.track__time-text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: right;
+  color: #696969;
 }
 </style>
